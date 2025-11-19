@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Фотограф | Профессиональная фотосъемка</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            scroll-behavior: smooth;
+        }
+        
+        .header {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #000;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #666;
+        }
+        
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://images.unsplash.com/photo-1554048612-b6a482bc67e5');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-top: 60px;
+        }
+        
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #fff;
+            color: #000;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 1rem;
+            transition: transform 0.3s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: #000;
+            color: #fff;
+        }
+
+        .btn-telegram {
+            background: #000000;
+            color: white;
+        }
+        
+        .section {
+            padding: 5rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .portfolio-item {
+            background: #f5f5f5;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        
+        .portfolio-item:hover {
+            transform: scale(1.03);
+        }
+        
+        .portfolio-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        
+        .portfolio-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* Стили для раздела "Обо мне" */
+        .about-section {
+            background: #f9f9f9;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .about-photo {
+            width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .about-photo:hover {
+            transform: translateY(-5px);
+        }
+        
+        .about-photo img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .cities {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .city-tag {
+            background: #000;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        /* Стили для услуг и цен */
+        .services {
+            background: #f9f9f9;
+        }
+        
+        .service-category {
+            margin-bottom: 4rem;
+        }
+        
+        .service-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #333;
+        }
+        
+        .price-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .price-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .price-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .price-card.featured {
+            border: 2px solid #000;
+            position: relative;
+        }
+        
+        .price-card.featured::before {
+            content: "Популярный";
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        
+        .price-name {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        
+        .price-amount {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            color: #000;
+        }
+        
+        .price-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .price-features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .price-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        /* Стили для контактов */
+        .contacts-section {
+            background: #f9f9f9;
+        }
+
+        .contacts-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .contact-info {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .contact-item:hover {
+            background-color: #f5f5f5;
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            width: 40px;
+            text-align: center;
+        }
+
+        .contact-details {
+            flex: 1;
+        }
+
+        .contact-label {
+            font-weight: bold;
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-value {
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        .contact-link {
+            color: #000;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-link:hover {
+            color: #666;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #000;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: transform 0.3s;
+        }
+
+        .social-link:hover {
+            transform: translateY(-2px);
+        }
+
+        .telegram-info {
+            background: #000000;
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .telegram-info h4 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .telegram-steps {
+            list-style: none;
+            text-align: left;
+            margin-top: 1rem;
+        }
+
+        .telegram-steps li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .telegram-steps li:before {
+            content: "➤";
+            position: absolute;
+            left: 0;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .contacts-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .about-photo {
+                order: -1;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            .logo {
+                font-size: 1.2rem;
+            }
+            
+            .grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">Фотограф Лебедева Анастасия</div>
+            <ul class="nav-links">
+                <li><a href="#home">Главная</a></li>
+                <li><a href="#portfolio">Портфолио</a></li>
+                <li><a href="#services">Услуги и цены</a></li>
+                <li><a href="#about">Обо мне</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Профессиональная фотосъемка</h1>
+            <p>Запечатлеваю ваши самые важные моменты</p>
+            <a href="#contact" class="btn">Записаться на съемку</a>
+        </div>
+    </section>
+
+    <section class="section" id="portfolio">
+        <h2 class="section-title">Мои работы</h2>
+        <div class="grid">
+            <div class="portfolio-item">
+                <img src="https://downloader.disk.yandex.ru/preview/94a018f8d881eaab1eb6cdba98c84cb5b27804ff479a081b7d6f58047b454a91/691e5e70/VCZYzJKwTN8oZiLOwynhmxpABnBeATEuinuaGg22PMvHCX0a8YWiP8L1R6TUSz8iNVcZUVSzYt-meeWfvBkb_w%3D%3D?uid=0&filename=IMG_3408%20%D0%BA%D0%BE%D0%BF%D0%B8%D1%8F.jpg&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v3&size=2048x2048" alt="Свадебная фотосессия">
+            </div>
+            <div class="portfolio-item">
+                <img src="https://downloader.disk.yandex.ru/preview/e6d6a0295ef906e60d043d6ef482a09c7fa8b47a7039077a4c54ba4a6e083007/691e38d9/Z5-pNB3nwOqZOJXlBNGjzh5JVc3rYq_lxuH-nZV6DBn_vxg37-Vbcf4t9nxBfXzKdTfMghJA8i-DrnuLDMTUbQ%3D%3D?uid=0&filename=IMG_4696.jpeg&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v3&size=1920x945" alt="Портретная съемка">
+            </div>
+            <div class="portfolio-item">
+                <img src="https://downloader.disk.yandex.ru/preview/5ca92e6bb3984251b60012492b7299b61839638b140b89a01aa176baed9489fd/691e6021/QEhfCTQFqbYqHBUH8k9ZesU2e-S-f6kPl4zojUcKX4X1yLitd1peE5veCoMDarnBUdEDNYSo2rWJM4yZkrZiww%3D%3D?uid=0&filename=IMG_5303%20%D0%BA%D0%BE%D0%BF%D0%B8%D1%8F%20%D1%80%D0%B5%D1%82%D1%83%D1%88%D1%8C.jpg&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v3&size=2048x2048" alt="Индивидуальная съемка">
+            </div>
+            <div class="portfolio-item">
+                <img src="https://downloader.disk.yandex.ru/preview/b815d18141335e20849662a07fc57568fab682e79ba762279e9d07f8e0338d5d/691e38d9/EgPB8l1l0rpTkyuqFQfF6oFMJPn6y-qk5hivJ456sXEffmSSsZS6BJC5lRoRkr05TGQ33qNSOMVth_IOppDdXA%3D%3D?uid=0&filename=IMG_4960%20%D1%80%D0%B5%D1%82%D1%83%D1%88%D1%8C%20%D1%84%D0%B8%D0%BB%D1%8C%D1%82%D1%80.jpg&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v3&size=1920x945" alt="Портрет с ретушью">
+            </div>
+            <!-- Новые добавленные фото -->
+            <div class="portfolio-item">
+                <img src="https://downloader.disk.yandex.ru/preview/fc122f48c78025f5d5c7a7e1f1af5b0c346e7baed454a2f8a8440f8dc8fbaf77/691e38d9/2Mkvm_A5AYtCOcC5Vev4pNlrE436P1f6gMJOMQUuhoVR9FBhUkfOMid1BvxRVZdwq8yR__l0oZ53DpWEgg4wJw%3D%3D?uid=0&filename=IMG_4842.jpeg&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v3&size=1920x945" alt="Портретная съемка в студии">
+            </div>
+            <div class="portfolio-item">
+                <img src="https://downloader.disk.yandex.ru/preview/6bdda0a69957fc24ec255a0263617f1cf742dc452f4f79753f178f6d0b3b7c8c/691e3d11/SUmi20MKR6-oC24wfg_80oNd-z0DtT4GdNwtpIEeI4X8YJlGuWMGoNNRsNAiu_jVSVNG-hqdD61nkdyi0Q5NVg%3D%3D?uid=0&filename=IMG_0391%20%D0%BA%D0%BE%D0%BF%D0%B8%D1%8F%202.jpg&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v3&size=2048x2048" alt="Свадебный портрет">
+            </div>
+        </div>
+    </section>
+
+    <section class="section about-section" id="about">
+        <h2 class="section-title">Обо мне</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p><strong>Давайте познакомимся. Меня зовут Лебедева Анастасия. Я профессиональный фотограф.</strong></p>
+                
+                <div class="cities">
+                    <span class="city-tag">📍 Выкса</span>
+                    <span class="city-tag">📍 Нижний Новгород</span>
+                </div>
+                
+                <p>Живу и работаю в нескольких городах: Выкса и Нижний Новгород. Для меня фотография - это не просто фиксация моментов, а способ самовыражения, искусство, в котором я делюсь частичкой своей души.</p>
+                
+                <p>Я - творческий человек, и мои работы - это отражение моего видения, моих эмоций и моей уникальной перспективы. Приглашаю вас окунуться в мой мир, открыв раздел "Портфолио".</p>
+                
+                <p>Мои клиенты - это люди, такие же, как я: творческие, с уникальным взглядом на мир, ценящие подлинность и индивидуальность. Если вы ищете не просто фотографа, а единомышленника, который поможет воплотить в жизнь ваши самые смелые творческие задумки, вы нашли своего человека!</p>
+                
+                <p><strong>С нетерпением жду встречи, чтобы вместе создать нечто особенное!</strong></p>
+                
+                <a href="#contact" class="btn btn-primary" style="margin-top: 2rem;">Связаться со мной</a>
+            </div>
+            <div class="about-photo">
+                <img src="https://downloader.disk.yandex.ru/preview/f36fe45baaa3753cdb55140fa4ac8f0998a931fd3ed13bdfc3cd53cf0c7ffaa5/691e55f6/tKeqKfJDEM3l13MKSzE2vRN7kHt13fnQTX2l56D-dXAbO0h2jzhUM0WT2av-VaMOgrZzUCZDPCtSNlcyHgHnOg%3D%3D?uid=0&filename=%D0%A4%D0%9E%D0%A2%D0%9E1.jpg&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=0&tknv=v3&size=1920x945" alt="Фотограф Лебедева Анастасия">
+            </div>
+        </div>
+    </section>
+
+    <section class="section services" id="services">
+        <h2 class="section-title">Услуги и цены</h2>
+        
+        <!-- Свадебная фотосъемка -->
+        <div class="service-category">
+            <h3 class="service-title">Свадебная фотосъемка</h3>
+            <div class="price-cards">
+                <div class="price-card">
+                    <h4 class="price-name">Базовый</h4>
+                    <div class="price-amount">8 000 ₽</div>
+                    <ul class="price-features">
+                        <li>2 часа свадебной съемки</li>
+                        <li>Анонс на следующий день</li>
+                        <li>ЗАГС + фотопрогулка</li>
+                        <li>Срок обработки: 2 недели</li>
+                        <li>Передача файлов через облачное хранилище</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Выбрать пакет</a>
+                </div>
+                
+                <div class="price-card featured">
+                    <h4 class="price-name">Стандарт</h4>
+                    <div class="price-amount">20 000 ₽</div>
+                    <ul class="price-features">
+                        <li>8 часов съемки</li>
+                        <li>Анонс на следующий день</li>
+                        <li>Срок обработки: 6 недель</li>
+                        <li>Передача файлов через облачное хранилище</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Выбрать пакет</a>
+                </div>
+                
+                <div class="price-card">
+                    <h4 class="price-name">Максимальный</h4>
+                    <div class="price-amount">32 000 ₽</div>
+                    <ul class="price-features">
+                        <li>10 часов съемки (полный день)</li>
+                        <li>Анонс на следующий день</li>
+                        <li>Срок обработки: 8 недель</li>
+                        <li>Скидка 20 % на следующую фотосессию</li>
+                        <li>Передача файлов через облачное хранилище</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Выбрать пакет</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Индивидуальная съемка -->
+        <div class="service-category">
+            <h3 class="service-title">Индивидуальная съемка</h3>
+            <div class="price-cards">
+                <div class="price-card">
+                    <h4 class="price-name">Базовый</h4>
+                    <div class="price-amount">3 000 ₽</div>
+                    <ul class="price-features">
+                        <li>1 час съемки</li>
+                        <li>15 обработанных фото</li>
+                        <li>Доп. ретушь 1 фото + 100 ₽</li>
+                        <li>Срок обработки: 1 неделя</li>
+                        <li>Помощь в создании образов</li>
+                        <li>Цветокоррекция до 65 кадров</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Выбрать пакет</a>
+                </div>
+                
+                <div class="price-card featured">
+                    <h4 class="price-name">Стандарт</h4>
+                    <div class="price-amount">4 000 ₽</div>
+                    <ul class="price-features">
+                        <li>1 час съемки</li>
+                        <li>20 обработанных фото</li>
+                        <li>Доп. ретушь 1 фото + 100 ₽</li>
+                        <li>Срок обработки: 2 недели</li>
+                        <li>Помощь в создании образов</li>
+                        <li>Цветокоррекция от 100 кадров</li>
+                        <li>Фотографии в цветокоррекции на следующий день</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Выбрать пакет</a>
+                </div>
+                
+                <div class="price-card">
+                    <h4 class="price-name">Максимальный</h4>
+                    <div class="price-amount">6 000 ₽</div>
+                    <ul class="price-features">
+                        <li>до 2-х часов съемки</li>
+                        <li>25 обработанных фото</li>
+                        <li>Все хорошие кадры без ограничения по колличеству (до 300 кадров)</li>
+                        <li>Доп. ретушь 1 фото + 100 ₽</li>
+                        <li>Срок обработки: 2 недели</li>
+                        <li>Помощь в создании образов</li>
+                        <li>Цветокоррекция от 150 кадров</li>
+                        <li>Фотографии в цветокоррекции на следующий день</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Выбрать пакет</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section contacts-section" id="contact">
+        <h2 class="section-title">Контакты</h2>
+        <div class="contacts-container">
+            <div class="contact-info">
+                <h3 style="margin-bottom: 2rem; text-align: center;">Свяжитесь со мной</h3>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">📞</div>
+                    <div class="contact-details">
+                        <div class="contact-label">Телефон</div>
+                        <div class="contact-value">
+                            <a href="tel:+79159493400" class="contact-link">+7 (915) 949-34-00</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
+                    <div class="contact-details">
+                        <div class="contact-label">Email</div>
+                        <div class="contact-value">
+                            <a href="mailto:nastyalebedeva2201@mail.ru" class="contact-link">nastyalebedeva2201@mail.ru</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">👤</div>
+                    <div class="contact-details">
+                        <div class="contact-label">ВКонтакте</div>
+                        <div class="contact-value">
+                            <a href="https://vk.com/photanastasialebedeva" target="_blank" class="contact-link">vk.com/photanastasialebedeva</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">📱</div>
+                    <div class="contact-details">
+                        <div class="contact-label">Telegram</div>
+                        <div class="contact-value">
+                            <a href="https://t.me/lebedeva_an_photo" target="_blank" class="contact-link">@naestii22</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">📷</div>
+                    <div class="contact-details">
+                        <div class="contact-label">Instagram</div>
+                        <div class="contact-value">
+                            <a href="https://www.instagram.com/lebedeva_photo_n_?igsh=MWM4NTFoOG04MTVmYw==" target="_blank" class="contact-link">@lebedeva_photo_n_</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="social-links">
+                    <a href="https://vk.com/photanastasialebedeva" target="_blank" class="social-link">ВКонтакте</a>
+                    <a href="https://t.me/lebedeva_an_photo" target="_blank" class="social-link" style="background: #000000;">Telegram</a>
+                    <a href="https://www.instagram.com/lebedeva_photo_n_?igsh=MWM4NTFoOG04MTVmYw==" target="_blank" class="social-link">Instagram</a>
+                </div>
+            </div>
+
+            <div class="contact-form">
+                <div class="telegram-info">
+                    <h4>Запись на съемку через Telegram</h4>
+                    <p>Нажмите кнопку ниже, чтобы написать мне в Telegram и обсудить детали съемки</p>
+                </div>
+
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <h3 style="margin-bottom: 1rem;">Быстрая запись</h3>
+                    <p style="margin-bottom: 1.5rem; color: #666;">Выберите тип съемки и перейдите в Telegram для обсуждения деталей</p>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <a href="https://t.me/lebedeva_an_photo" class="btn btn-telegram" style="text-align: center; padding: 15px; font-size: 1.1rem;" target="_blank">
+                         Индивидуальная съемка
+                    </a>
+                    
+                    <a href="https://t.me/lebedeva_an_photo" class="btn btn-telegram" style="text-align: center; padding: 15px; font-size: 1.1rem;" target="_blank">
+                         Свадебная съемка
+                    </a>
+                </div>
+
+                <div style="margin-top: 2rem; padding: 1.5rem; background: #f5f5f5; border-radius: 10px;">
+                    <h4 style="margin-bottom: 1rem;">Как проходит запись:</h4>
+                    <ul class="telegram-steps">
+                        <li>Нажмите на кнопку с нужным типом съемки</li>
+                        <li>Откроется Telegram - напишите мне сообщение</li>
+                        <li>Обсудим дату, время и детали съемки</li>
+                        <li>Подтвердим бронь и всё готово!</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
