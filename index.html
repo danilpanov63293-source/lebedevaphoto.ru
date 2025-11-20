@@ -58,6 +58,24 @@
             color: #666;
         }
         
+        /* Бургер-меню для мобильных */
+        .burger {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+        }
+        
+        .burger-line {
+            height: 3px;
+            width: 100%;
+            background-color: #333;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
         .hero {
             height: 100vh;
             background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
@@ -427,7 +445,42 @@
             color: white;
         }
 
+        /* Медиа-запросы для мобильных устройств */
         @media (max-width: 768px) {
+            .burger {
+                display: flex;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 60px;
+                right: -100%;
+                flex-direction: column;
+                background-color: white;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0,0,0,0.05);
+                padding: 2rem 0;
+                gap: 0;
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .nav-links li {
+                margin: 1rem 0;
+            }
+            
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
             .contacts-container {
                 grid-template-columns: 1fr;
                 gap: 2rem;
@@ -453,6 +506,64 @@
             .grid {
                 grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             }
+            
+            .price-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .price-card {
+                padding: 1.5rem;
+            }
+            
+            .service-title {
+                font-size: 1.5rem;
+            }
+            
+            .section {
+                padding: 3rem 5%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .price-amount {
+                font-size: 2rem;
+            }
+            
+            .price-name {
+                font-size: 1.3rem;
+            }
+            
+            .contact-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .contact-icon {
+                margin-right: 0;
+                margin-bottom: 0.5rem;
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
+            
+            .social-link {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
@@ -467,6 +578,11 @@
                 <li><a href="#about">Обо мне</a></li>
                 <li><a href="#contact">Контакты</a></li>
             </ul>
+            <div class="burger">
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+            </div>
         </nav>
     </header>
 
@@ -725,6 +841,24 @@
             </div>
         </div>
     </section>
+
+    <script>
+        // JavaScript для бургер-меню
+        const burger = document.querySelector('.burger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        burger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            burger.classList.toggle('active');
+        });
+        
+        // Закрытие меню при клике на ссылку
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                burger.classList.remove('active');
+            });
+        });
+    </script>
 </body>
 </html>
-
